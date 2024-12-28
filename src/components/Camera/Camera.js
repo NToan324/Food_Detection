@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Webcam from "react-webcam";
 import {
   BrowserRouter as Router,
@@ -7,8 +7,9 @@ import {
   Link,
   useNavigate,
 } from "react-router-dom";
-
 import { Button } from "rsuite";
+import FoodDetectionService from "../../services/Food/Detection";
+import FoodService from "../../services/Food/food";
 
 const videoConstraints = {
   width: 540,
@@ -24,6 +25,7 @@ const Camera = ({ data }) => {
   const [url, setUrl] = React.useState(null);
   const [change, setChange] = React.useState(true);
   const [facingMode, setFacingMode] = React.useState(FACING_MODE_USER);
+  const [predictValue, setPredictValue] = React.useState(null);
 
   // Switch between front and back camera
   const handleClick = React.useCallback(() => {
@@ -80,6 +82,33 @@ const Camera = ({ data }) => {
 
   const navigate = useNavigate();
 
+  //Predict image
+  const predictImage = async () => {
+    try {
+      const data = new FormData();
+      data.append("imagefile", b64toBlob(url));
+      const response = await FoodDetectionService(data);
+      if (response.data.success) {
+        console.log("response", response.data.prediction.index);
+        setPredictValue(response.data.prediction);
+        const getDataAfterPredict = await FoodService.getFoodById(
+          response.data.prediction.index
+        );
+        if (
+          getDataAfterPredict.data.errCode === 0 &&
+          getDataAfterPredict.data.data.length > 0
+        ) {
+          navigate(`/result/${response.data.prediction.index}`, {
+            state: getDataAfterPredict.data.data,
+          });
+          console.log("data", getDataAfterPredict.data.data);
+        }
+      }
+    } catch (error) {
+      console.log("Error when predict: ", error);
+    }
+  };
+
   return (
     <>
       {
@@ -127,7 +156,7 @@ const Camera = ({ data }) => {
             <Button
               appearance="default"
               className="bg-yellow text-white font-bold rounded-[15px] p-4"
-              onClick={() => navigate("/result")}
+              onClick={() => predictImage()}
             >
               Predict
             </Button>

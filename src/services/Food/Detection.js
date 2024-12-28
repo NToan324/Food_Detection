@@ -1,4 +1,4 @@
-import axios from "../../axios";
+import axios from "../../axiosModel";
 import endPoints from "../endPoints";
 
 const foodDetectionPredict = (imageFile) => {

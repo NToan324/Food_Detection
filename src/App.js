@@ -17,7 +17,7 @@ function App() {
         <Route path="/History" element={<LandingFoodPage />} />
 
         <Route path="/food-detection" element={<FoodDetection />} />
-        <Route path="/result" element={<Prediction />} />
+        <Route path="/result/:id" element={<Prediction />} />
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
       <ToastContainer

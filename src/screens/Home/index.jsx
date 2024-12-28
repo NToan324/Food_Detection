@@ -18,7 +18,7 @@ export default function Home() {
           DIVERSITY OF
           <span className="text-yellow"> VIETNAMESE</span> CUISINE
         </h1>
-        <p className="text-gray-dark font-bold phone:text-sm">
+        <p className="text-gray-dark font-bold phone:text-sm phone:line-clamp-4">
           Discover the diversity and uniqueness of Vietnamese cuisine through
           each dish. From traditional pho, famous banh mi to sweet desserts,
           let's learn and identify the unique flavors that captivate diners.

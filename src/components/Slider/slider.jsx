@@ -26,9 +26,11 @@ const data = [
   },
 ];
 
-const SliderCustom = () => {
+const SliderCustom = ({ foodData }) => {
+  const data = foodData;
+  console.log(data);
   var settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 3, // Số lượng slide hiển thị trên màn hình lớn
@@ -40,7 +42,7 @@ const SliderCustom = () => {
           slidesToShow: 2, // Hiển thị 2 slide
           slidesToScroll: 1,
           infinite: true,
-          dots: true,
+          dots: false,
         },
       },
       {
@@ -49,7 +51,7 @@ const SliderCustom = () => {
           slidesToShow: 1, // Hiển thị 1 slide
           slidesToScroll: 1,
           infinite: true,
-          dots: true,
+          dots: false,
         },
       },
     ],
@@ -66,20 +68,20 @@ const SliderCustom = () => {
           <div key={index} className="p-5 phone:p-2">
             <div className="max-w-[350px] max-h-[450px] bg-white shadow-custom-dark rounded-[30px] ml-2 phone:border phone:shadow-none">
               <img
-                src={item.imageUrl}
-                alt={item.title}
-                className="w-full h-[250px] rounded-t-lg phone:h-[200px]"
+                src={item.imgUrl}
+                alt={item.foodName}
+                className="w-full h-[250px] rounded-t-[30px] phone:h-[200px] object-cover"
               />
-              <div className="p-4 space-x-2">
-                <div className="flex justify-between items-center w-full">
-                  <h1 className="mt-4 text-2xl font-bold phone:text-xl">
-                    {item.title}
+              <div className="p-4 ">
+                <div className="flex justify-between items-center w-full gap-1">
+                  <h1 className="text-2xl font-bold phone:text-xl">
+                    {item.foodName}
                   </h1>
                   <button className="bg-yellow rounded-[15px] w-[110px] h-[45px] text-white font-bold phone:text-sm">
                     See details
                   </button>
                 </div>
-                <p className="mt-2 text-gray-600 phone:text-sm">
+                <p className="mt-2 text-gray-600 phone:text-sm line-clamp-3">
                   {item.description}
                 </p>
               </div>

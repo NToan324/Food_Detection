@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import FoodDetectionService from "../../services/Food/foodDetectionService";
+import FoodDetectionService from "../../services/Food/Detection";
 
 const FoodDetection = () => {
   const [selectFile, setSelectFile] = useState(null);
