@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { CustomNextArrow, CustomPrevArrow } from "./customArrow";
-import { responsiveFontSizes } from "@mui/material";
+
 const data = [
   {
     imageUrl: BanhXeo,

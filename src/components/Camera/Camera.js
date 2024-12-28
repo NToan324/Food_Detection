@@ -25,7 +25,6 @@ const Camera = ({ data }) => {
   const [url, setUrl] = React.useState(null);
   const [change, setChange] = React.useState(true);
   const [facingMode, setFacingMode] = React.useState(FACING_MODE_USER);
-  const [predictValue, setPredictValue] = React.useState(null);
 
   // Switch between front and back camera
   const handleClick = React.useCallback(() => {
@@ -89,8 +88,6 @@ const Camera = ({ data }) => {
       data.append("imagefile", b64toBlob(url));
       const response = await FoodDetectionService(data);
       if (response.data.success) {
-        console.log("response", response.data.prediction.index);
-        setPredictValue(response.data.prediction);
         const getDataAfterPredict = await FoodService.getFoodById(
           response.data.prediction.index
         );

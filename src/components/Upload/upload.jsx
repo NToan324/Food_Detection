@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import FoodDetectionService from "../../services/Food/Detection";
+import FoodService from "../../services/Food/food";
+
 const ImageUploader = () => {
   const navigate = useNavigate();
   const [image, setImage] = useState(null); // Lưu URL của hình ảnh
@@ -10,8 +13,7 @@ const ImageUploader = () => {
     const file = e.target.files[0]; // Lấy file đầu tiên
     if (file) {
       if (file.type.startsWith("image/")) {
-        // Kiểm tra nếu là file ảnh
-        setImage(URL.createObjectURL(file)); // Lưu URL ảnh để hiển thị
+        setImage(file); // Lưu đối tượng File thay vì URL
         setError(""); // Xóa thông báo lỗi nếu có
       } else {
         setError("Only image files are allowed."); // Hiển thị lỗi
@@ -19,8 +21,26 @@ const ImageUploader = () => {
     }
   };
 
-  const handlePredict = () => {
-    navigate("/result");
+  const handlePredict = async () => {
+    try {
+      const data = new FormData();
+      data.append("imagefile", image);
+      const response = await FoodDetectionService(data);
+      if (response.data.success) {
+        console.log("response", response.data);
+        const getDataAfterPredict = await FoodService.getFoodById(
+          response.data.prediction.index
+        );
+        if (getDataAfterPredict.data.errCode === 0) {
+          navigate(`/result/${response.data.prediction.index}`, {
+            state: getDataAfterPredict.data.data,
+          });
+          console.log("data", getDataAfterPredict.data.data);
+        }
+      }
+    } catch (error) {
+      console.log("Error when predict: ", error);
+    }
   };
 
   return (
@@ -58,7 +78,7 @@ const ImageUploader = () => {
         <div style={{ marginTop: "20px" }}>
           <h4>Preview:</h4>
           <img
-            src={image}
+            src={URL.createObjectURL(image)}
             alt="Preview"
             style={{
               maxWidth: "300px",
