@@ -12,14 +12,14 @@ export default function About() {
         <img
           src={ComTam}
           alt="ComTam"
-          className="absolute left-36 phone:w-[120px] phone:left-16 phone:top-4"
+          className="absolute left-36 phone:w-[100px] phone:left-16 phone:top-6"
         />
         <img
           src={NuocMia}
           alt="NuocMia"
-          className="absolute top-24 left-2 phone:w-[120px] phone:top-14"
+          className="absolute top-24 left-2 phone:w-[100px] phone:top-14"
         />
-        <img src={Graphic} alt="Graphic" className="phone:w-[120px]" />
+        <img src={Graphic} alt="Graphic" className="phone:w-[110px]" />
       </div>
       <div className="w-1/2 space-y-[50px]">
         <div className="space-y-2">

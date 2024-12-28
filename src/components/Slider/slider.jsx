@@ -56,28 +56,32 @@ const SliderCustom = () => {
   };
 
   return (
-    <div className="w-full h-[600px] space-x-[10px] p-10">
+    <div className="w-full h-[600px] space-x-[10px] p-10 phone:h-[500px]">
       <Slider
         {...settings}
         nextArrow={<CustomNextArrow />}
         prevArrow={<CustomPrevArrow />}
       >
         {data.map((item, index) => (
-          <div key={index} className="p-5">
-            <div className="max-w-[350px] max-h-[450px] bg-white shadow-custom-dark rounded-[30px] ml-2">
+          <div key={index} className="p-5 phone:p-2">
+            <div className="max-w-[350px] max-h-[450px] bg-white shadow-custom-dark rounded-[30px] ml-2 phone:border phone:shadow-none">
               <img
                 src={item.imageUrl}
                 alt={item.title}
-                className="w-full h-[250px] rounded-t-lg"
+                className="w-full h-[250px] rounded-t-lg phone:h-[200px]"
               />
               <div className="p-4 space-x-2">
                 <div className="flex justify-between items-center w-full">
-                  <h1 className="mt-4 text-2xl font-bold">{item.title}</h1>
-                  <button className="bg-yellow rounded-[15px] w-[110px] h-[45px] text-white font-bold">
+                  <h1 className="mt-4 text-2xl font-bold phone:text-xl">
+                    {item.title}
+                  </h1>
+                  <button className="bg-yellow rounded-[15px] w-[110px] h-[45px] text-white font-bold phone:text-sm">
                     See details
                   </button>
                 </div>
-                <p className="mt-2 text-gray-600">{item.description}</p>
+                <p className="mt-2 text-gray-600 phone:text-sm">
+                  {item.description}
+                </p>
               </div>
             </div>
           </div>

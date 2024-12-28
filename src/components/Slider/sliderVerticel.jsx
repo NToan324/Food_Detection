@@ -67,11 +67,11 @@ const SliderCustom = () => {
       >
         {data.map((item, index) => (
           <div key={index} className="p-5">
-            <div className="w-[600px] h-[250] shadow-custom-dark flex justify-between gap-4 items-center p-6 rounded-[30px] phone:w-full">
+            <div className="w-[600px] h-[250] shadow-custom-dark flex justify-between gap-4 items-center p-6 rounded-[30px] phone:w-full phone:flex-col">
               <img
                 src={BanhXeo}
                 alt="BanhXeo"
-                className="rounded-full w-[200px] h-[200px] phone:w-[100px] phone:h-[100px]"
+                className="rounded-full w-[200px] h-[200px] phone:w-full phone:h-[150px] phone:rounded-[15px] phone:object-cover"
               />
               <div className="flex flex-col justify-between gap-5">
                 <div className="flex justify-between items-center">

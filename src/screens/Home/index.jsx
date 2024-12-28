@@ -36,12 +36,12 @@ export default function Home() {
         <img
           src={Pho}
           alt="Pho"
-          className="absolute top-48 left-10 w-full max-w-[450px] h-auto phone:max-w-[130px] phone:top-28 phone:-left-7"
+          className="absolute top-48 left-10 w-full max-w-[450px] h-auto phone:max-w-[100px] phone:top-16 phone:-left-7"
         />
         <img
           src={BanhMi}
           alt="BanhMi"
-          className="absolute top-28 right-5 w-full max-w-[200px] h-auto phone:max-w-[80px] phone:top-12"
+          className="absolute top-28 right-5 w-full max-w-[200px] h-auto phone:max-w-[60px] phone:top-12"
         />
         <button className="text-white font-bold phone:text-[7px] w-[100px] h-[40px] rounded-[15px] bg-yellow absolute bottom-20 left-44 rotate-6 phone:w-[50px] phone:h-[20px] phone:left-0 phone:bottom-12">
           "Pho"

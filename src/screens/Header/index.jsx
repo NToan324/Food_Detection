@@ -23,7 +23,7 @@ export default function Header() {
   };
 
   return (
-    <div className="w-full min-w-[430px] h-[100px] flex-wrap flex justify-between items-center px-[100px] sticky top-0 bg-white z-50 phone:px-5 tablet:justify-center gap-5">
+    <div className="w-full min-w-[360px] h-[100px] flex-wrap flex justify-between items-center px-[100px] sticky top-0 bg-white z-50 phone:px-5 tablet:justify-center gap-5">
       <div className="header-logo flex items-center gap-2">
         <img src={Logo} alt="logo" />
         <p>

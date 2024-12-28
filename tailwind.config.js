@@ -34,7 +34,7 @@ module.exports = {
       },
     },
     screens: {
-      phone: { min: "430px", max: "767px" }, // Điện thoại
+      phone: { min: "360px", max: "767px" }, // Điện thoại
       tablet: { min: "768px", max: "1023px" }, // Tablet
       desktop: { min: "1024px" }, // Máy tính
     },

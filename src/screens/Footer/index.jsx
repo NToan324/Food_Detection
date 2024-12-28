@@ -9,7 +9,7 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 export default function Footer() {
   return (
-    <div className="w-full min-h-[500px] flex flex-col justify-between items-center bg-yellow-light px-[100px] py-[50px] gap-10 desktop:mt-[200px]">
+    <div className="w-full min-h-[500px] flex flex-col justify-between items-center bg-yellow-light px-[100px] py-[50px] gap-10 desktop:mt-[200px] phone:px-5 phone:mt-[200px]">
       <div className="flex justify-between items-start w-full flex-wrap gap-10">
         <div className="flex flex-col justify-between gap-4 items-center">
           <div className="logo flex gap-2">
