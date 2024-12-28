@@ -94,10 +94,7 @@ const Camera = ({ data }) => {
         const getDataAfterPredict = await FoodService.getFoodById(
           response.data.prediction.index
         );
-        if (
-          getDataAfterPredict.data.errCode === 0 &&
-          getDataAfterPredict.data.data.length > 0
-        ) {
+        if (getDataAfterPredict.data.errCode === 0) {
           navigate(`/result/${response.data.prediction.index}`, {
             state: getDataAfterPredict.data.data,
           });
