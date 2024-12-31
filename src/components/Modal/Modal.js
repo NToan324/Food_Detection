@@ -18,6 +18,7 @@ function Modal({ modalIsOpen, setModalIsOpen, kind }) {
           overlay: {
             backgroundColor: "rgba(0, 0, 0, 0.5)",
             zIndex: 1000, // Màu nền overlay
+            transition: "all 1s",
           },
           content: {
             width: "90%",

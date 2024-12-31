@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-scroll";
 import MapVietNam from "../../public/map.svg";
 import Location from "../../public/location.svg";
 import Pho from "../../public/pho.png";
@@ -23,9 +24,11 @@ export default function Home() {
           each dish. From traditional pho, famous banh mi to sweet desserts,
           let's learn and identify the unique flavors that captivate diners.
         </p>
-        <button className="w-52 h-16 rounded-[30px] bg-yellow shadow-custom-light phone:w-36">
-          <span className="text-white font-bold">Explore Now</span>
-        </button>
+        <Link to="explore" smooth={true} duration={1000} offset={-200}>
+          <button className="w-52 h-16 rounded-[30px] bg-yellow shadow-custom-light phone:w-36 mt-5">
+            <span className="text-white font-bold">Explore Now</span>
+          </button>
+        </Link>
       </div>
       <div className="relative w-1/2 flex justify-end items-center">
         <img

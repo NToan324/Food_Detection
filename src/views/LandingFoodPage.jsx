@@ -8,7 +8,6 @@ import About from "../screens/About";
 import Foods from "../screens/Foods";
 import Explore from "../screens/Explore";
 import History from "../screens/History";
-
 const LandingFoodPage = () => {
   const location = useLocation();
   useEffect(() => {

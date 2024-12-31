@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { scroller } from "react-scroll";
 import Logo from "../../public/logo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faBars } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
+import Sidebar from "../../components/Sidebar/Sidebar";
 export default function Header() {
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleNavigate = (route, section) => {
     if (window.location.pathname === route) {
@@ -42,8 +44,13 @@ export default function Header() {
       <div className="account flex justify-between items-center gap-[30px]">
         <FontAwesomeIcon icon={faMagnifyingGlass} />
         <FontAwesomeIcon icon={faUser} />
-        <FontAwesomeIcon icon={faBars} className="phone:block hidden" />
+        <FontAwesomeIcon
+          icon={faBars}
+          className="phone:block hidden cursor-pointer"
+          onClick={() => setIsOpen(!isOpen)}
+        />
       </div>
+      <Sidebar isOpen={isOpen} handleNavigate={handleNavigate} />
     </div>
   );
 }

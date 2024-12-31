@@ -11,7 +11,7 @@ const CustomNextArrow = ({ className, onClick, kind }) => (
       width: "40px",
       height: "40px",
       zIndex: 0,
-      top: kind === "Vertical" ? "100%" : "50%",
+      top: kind === "Vertical" ? "100%" : "40%",
       left: kind === "Vertical" ? "35%" : "100%",
       transform: kind === "Vertical" ? "rotate(90deg)" : "rotate(0deg)",
     }}
@@ -31,7 +31,7 @@ const CustomPrevArrow = ({ className, onClick, kind }) => (
       width: "40px",
       height: "40px",
       zIndex: 0,
-      top: kind === "Vertical" ? "-40px" : "50%",
+      top: kind === "Vertical" ? "-40px" : "40%",
       left: kind === "Vertical" ? "35%" : "-32px",
       transform: kind === "Vertical" ? "rotate(90deg)" : "rotate(0deg)",
     }}
