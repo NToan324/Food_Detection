@@ -1,15 +1,16 @@
-import React, { useRef, useState } from "react";
+import React, {
+  useContext,
+  useRef,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 import Webcam from "react-webcam";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  useNavigate,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "rsuite";
 import FoodDetectionService from "../../services/Food/Detection";
 import FoodService from "../../services/Food/food";
+import { SpinnerContext } from "../../Context/SpinnerContext";
 
 const videoConstraints = {
   width: 540,
@@ -22,12 +23,13 @@ const FACING_MODE_ENVIRONMENT = "environment";
 
 const Camera = ({ data }) => {
   const webcamRef = useRef(null);
-  const [url, setUrl] = React.useState(null);
-  const [change, setChange] = React.useState(true);
-  const [facingMode, setFacingMode] = React.useState(FACING_MODE_USER);
+  const [url, setUrl] = useState(null);
+  const [change, setChange] = useState(true);
+  const [facingMode, setFacingMode] = useState(FACING_MODE_USER);
+  const { setIsLoading } = useContext(SpinnerContext);
+  const [showButton, setShowButton] = useState(false);
 
-  // Switch between front and back camera
-  const handleClick = React.useCallback(() => {
+  const handleClick = useCallback(() => {
     setFacingMode((prevState) =>
       prevState === FACING_MODE_USER ?
         FACING_MODE_ENVIRONMENT
@@ -36,7 +38,7 @@ const Camera = ({ data }) => {
   }, []);
 
   // Capture photo from webcam
-  const capturePhoto = React.useCallback(() => {
+  const capturePhoto = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
     setUrl(imageSrc);
     const output = b64toBlob(imageSrc);
@@ -84,6 +86,7 @@ const Camera = ({ data }) => {
   //Predict image
   const predictImage = async () => {
     try {
+      setIsLoading(true);
       const data = new FormData();
       data.append("imagefile", b64toBlob(url));
       const response = await FoodDetectionService(data);
@@ -92,16 +95,22 @@ const Camera = ({ data }) => {
           response.data.prediction.index
         );
         if (getDataAfterPredict.data.errCode === 0) {
+          setIsLoading(false);
           navigate(`/result/${response.data.prediction.index}`, {
             state: getDataAfterPredict.data.data,
           });
-          console.log("data", getDataAfterPredict.data.data);
         }
       }
     } catch (error) {
       console.log("Error when predict: ", error);
     }
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowButton(true);
+    }, 1000);
+  }, []);
 
   return (
     <>
@@ -123,46 +132,46 @@ const Camera = ({ data }) => {
 
       }
 
-      {
-        change ?
-          // Show capture buttons when in webcam mode
-          <div className="flex justify-center items-center gap-2">
-            <Button
-              color="green"
-              appearance="primary"
-              onClick={capturePhoto}
-              className="bg-yellow font-bold text-white rounded-[15px] p-4"
-            >
-              Take a picture
-            </Button>
-            &nbsp;
-            <Button
-              color="red"
-              appearance="primary"
-              onClick={handleClick}
-              className="border-2 border-yellow text-yellow font-bold rounded-[15px] p-4"
-            >
-              Change camera
-            </Button>
-          </div>
-          // Show refresh button when in image preview mode
-        : <div className="space-x-5 mt-5">
-            <Button
-              appearance="default"
-              className="bg-yellow text-white font-bold rounded-[15px] p-4"
-              onClick={() => predictImage()}
-            >
-              Predict
-            </Button>
-            <Button
-              appearance="default"
-              onClick={handleRefresh}
-              className="border-2 border-yellow text-yellow font-bold rounded-[15px] p-4"
-            >
-              Refresh
-            </Button>
-          </div>
-
+      {change ?
+        <div className="flex justify-center items-center gap-2">
+          {showButton && (
+            <>
+              <Button
+                color="green"
+                appearance="primary"
+                onClick={capturePhoto}
+                className="bg-yellow font-bold text-white rounded-[15px] p-4"
+              >
+                Take a picture
+              </Button>
+              &nbsp;
+              <Button
+                color="red"
+                appearance="primary"
+                onClick={handleClick}
+                className="border-2 border-yellow text-yellow font-bold rounded-[15px] p-4"
+              >
+                Change camera
+              </Button>
+            </>
+          )}
+        </div>
+      : <div className="space-x-5 mt-5">
+          <Button
+            appearance="default"
+            className="bg-yellow text-white font-bold rounded-[15px] p-4"
+            onClick={() => predictImage()}
+          >
+            Predict
+          </Button>
+          <Button
+            appearance="default"
+            onClick={handleRefresh}
+            className="border-2 border-yellow text-yellow font-bold rounded-[15px] p-4"
+          >
+            Refresh
+          </Button>
+        </div>
       }
     </>
   );

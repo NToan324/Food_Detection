@@ -1,41 +1,44 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FoodDetectionService from "../../services/Food/Detection";
 import FoodService from "../../services/Food/food";
+import { SpinnerContext } from "../../Context/SpinnerContext";
 
 const ImageUploader = () => {
   const navigate = useNavigate();
-  const [image, setImage] = useState(null); // Lưu URL của hình ảnh
-  const [error, setError] = useState(""); // Lưu lỗi nếu có
+  const [text, setText] = useState("Upload Image");
+  const [image, setImage] = useState(null);
+  const [error, setError] = useState("");
+  const { setIsLoading } = useContext(SpinnerContext);
 
-  // Hàm xử lý khi tải file
   const handleUpload = (e) => {
-    const file = e.target.files[0]; // Lấy file đầu tiên
+    const file = e.target.files[0];
     if (file) {
       if (file.type.startsWith("image/")) {
-        setImage(file); // Lưu đối tượng File thay vì URL
-        setError(""); // Xóa thông báo lỗi nếu có
+        setText("Change Image");
+        setImage(file);
+        setError("");
       } else {
-        setError("Only image files are allowed."); // Hiển thị lỗi
+        setError("Only image files are allowed.");
       }
     }
   };
 
   const handlePredict = async () => {
     try {
+      setIsLoading(true);
       const data = new FormData();
       data.append("imagefile", image);
       const response = await FoodDetectionService(data);
       if (response.data.success) {
-        console.log("response", response.data);
         const getDataAfterPredict = await FoodService.getFoodById(
           response.data.prediction.index
         );
         if (getDataAfterPredict.data.errCode === 0) {
+          setIsLoading(false);
           navigate(`/result/${response.data.prediction.index}`, {
             state: getDataAfterPredict.data.data,
           });
-          console.log("data", getDataAfterPredict.data.data);
         }
       }
     } catch (error) {
@@ -44,69 +47,61 @@ const ImageUploader = () => {
   };
 
   return (
-    <div style={{ textAlign: "center", padding: "20px" }}>
-      {/* Input file ẩn */}
-      <input
-        type="file"
-        id="image-upload"
-        accept="image/*" // Chỉ cho phép chọn file ảnh
-        onChange={handleUpload}
-        style={{ display: "none" }} // Ẩn input mặc định
-      />
+    <>
+      <div style={{ textAlign: "center", padding: "20px" }}>
+        <input
+          type="file"
+          id="image-upload"
+          accept="image/*"
+          onChange={handleUpload}
+          style={{ display: "none" }}
+        />
 
-      {/* Nút tải file tùy chỉnh */}
-      <label
-        htmlFor="image-upload"
-        style={{
-          display: "inline-block",
-          padding: "10px 20px",
-          backgroundColor: "#007BFF",
-          color: "white",
-          borderRadius: "5px",
-          cursor: "pointer",
-          fontSize: "16px",
-        }}
-      >
-        Upload Image
-      </label>
+        <label
+          htmlFor="image-upload"
+          style={{
+            display: "inline-block",
+            padding: "10px 20px",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+          className="bg-yellow rounded-[15px] font-bold p-4 text-white"
+        >
+          {text}
+        </label>
 
-      {/* Hiển thị lỗi nếu có */}
-      {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+        {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
 
-      {/* Hiển thị hình ảnh xem trước */}
-      {image && (
-        <div style={{ marginTop: "20px" }}>
-          <h4>Preview:</h4>
-          <img
-            src={URL.createObjectURL(image)}
-            alt="Preview"
-            style={{
-              maxWidth: "300px",
-              maxHeight: "300px",
-              borderRadius: "10px",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            }}
-          />
-          {/* Nút Predict */}
-          <button
-            onClick={handlePredict}
-            style={{
-              display: "inline-block",
-              marginTop: "20px",
-              padding: "10px 20px",
-              backgroundColor: "#28a745",
-              color: "white",
-              borderRadius: "5px",
-              cursor: "pointer",
-              fontSize: "16px",
-              border: "none",
-            }}
-          >
-            Predict
-          </button>
-        </div>
-      )}
-    </div>
+        {image && (
+          <div style={{ marginTop: "20px" }}>
+            <img
+              src={URL.createObjectURL(image)}
+              alt="Preview"
+              style={{
+                maxWidth: "300px",
+                maxHeight: "300px",
+                borderRadius: "10px",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+              }}
+            />
+            <button
+              onClick={handlePredict}
+              style={{
+                display: "inline-block",
+                marginTop: "20px",
+                borderRadius: "5px",
+                cursor: "pointer",
+                fontSize: "16px",
+                border: "none",
+              }}
+              className="bg-yellow rounded-[15px] font-bold p-4 text-white"
+            >
+              Predict
+            </button>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

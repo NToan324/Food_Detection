@@ -16,7 +16,7 @@ export default function Header() {
       scroller.scrollTo(section, {
         smooth: true,
         duration: 1000,
-        offset: -200, // Bù đắp cho header hoặc khoảng trống trên
+        offset: -150, // Bù đắp cho header hoặc khoảng trống trên
       });
     } else {
       // Nếu không, chuyển route và truyền thông tin cuộn
@@ -50,7 +50,11 @@ export default function Header() {
           onClick={() => setIsOpen(!isOpen)}
         />
       </div>
-      <Sidebar isOpen={isOpen} handleNavigate={handleNavigate} />
+      <Sidebar
+        setIsOpen={setIsOpen}
+        isOpen={isOpen}
+        handleNavigate={handleNavigate}
+      />
     </div>
   );
 }

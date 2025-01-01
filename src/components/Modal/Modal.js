@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import ReactModal from "react-modal";
 import UploadFile from "../Upload/upload";
-
 import Camera from "../Camera/Camera";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,7 +16,7 @@ function Modal({ modalIsOpen, setModalIsOpen, kind }) {
         style={{
           overlay: {
             backgroundColor: "rgba(0, 0, 0, 0.5)",
-            zIndex: 1000, // Màu nền overlay
+            zIndex: 900, // Màu nền overlay
             transition: "all 1s",
           },
           content: {

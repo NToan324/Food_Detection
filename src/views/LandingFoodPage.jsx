@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { scroller } from "react-scroll";
 import { Layout } from "../layout/layout";
@@ -8,6 +7,9 @@ import About from "../screens/About";
 import Foods from "../screens/Foods";
 import Explore from "../screens/Explore";
 import History from "../screens/History";
+import { SpinnerProvider } from "../Context/SpinnerContext";
+import SpinnerLoader from "../components/Spinner/SpinnerLoader";
+
 const LandingFoodPage = () => {
   const location = useLocation();
   useEffect(() => {
@@ -15,21 +17,25 @@ const LandingFoodPage = () => {
       scroller.scrollTo(location.state.scrollTo, {
         smooth: true,
         duration: 1000,
-        offset: -200, // Bù đắp cho header
+        offset: -200,
       });
     }
   }, [location]);
+
   return (
     <>
-      <Layout>
-        <div className="space-y-[200px] phone:space-y-10">
-          <Home />
-          <About />
-          <Foods />
-          <Explore />
-          <History />
-        </div>
-      </Layout>
+      <SpinnerProvider>
+        <SpinnerLoader />
+        <Layout>
+          <div className="space-y-[200px] phone:space-y-10">
+            <Home />
+            <About />
+            <Foods />
+            <Explore />
+            <History />
+          </div>
+        </Layout>
+      </SpinnerProvider>
     </>
   );
 };

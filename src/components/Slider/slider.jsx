@@ -1,34 +1,11 @@
-import BanhXeo from "../../public/banhxeo.png";
 import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { CustomNextArrow, CustomPrevArrow } from "./customArrow";
 
-const data = [
-  {
-    imageUrl: BanhXeo,
-    title: "Bánh xèo",
-    description:
-      "Bánh xèo là một món ăn truyền thống của người Việt Nam, một món ăn ngon và hấp dẫn, được nhiều người yêu thích.",
-  },
-  {
-    imageUrl: BanhXeo,
-    title: "Bánh xèo",
-    description:
-      "Bánh xèo là một món ăn truyền thống của người Việt Nam, một món ăn ngon và hấp dẫn, được nhiều người yêu thích.",
-  },
-  {
-    imageUrl: BanhXeo,
-    title: "Bánh xèo",
-    description:
-      "Bánh xèo là một món ăn truyền thống của người Việt Nam, một món ăn ngon và hấp dẫn, được nhiều người yêu thích.",
-  },
-];
-
 const SliderCustom = ({ foodData }) => {
   const data = foodData;
-  console.log(data);
   var settings = {
     dots: false,
     infinite: true,
@@ -58,7 +35,7 @@ const SliderCustom = ({ foodData }) => {
   };
 
   return (
-    <div className="w-full h-[600px] space-x-[10px] p-10 phone:h-[500px]">
+    <div className="w-full h-[450px] space-x-[10px] p-10 phone:h-[500px]">
       <Slider
         {...settings}
         nextArrow={<CustomNextArrow />}
