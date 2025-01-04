@@ -9,6 +9,13 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 export default function Header() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const menuItems = [
+    { label: "Home", path: "/Home", section: "home" },
+    { label: "About", path: "/Home", section: "about" },
+    { label: "Food", path: "/Home", section: "food" },
+    { label: "Explore", path: "/Home", section: "explore" },
+    { label: "History", path: "/Home", section: "history" },
+  ];
 
   const handleNavigate = (route, section) => {
     if (window.location.pathname === route) {
@@ -34,16 +41,24 @@ export default function Header() {
       </div>
       <div className="menu">
         <ul className="flex justify-between items-center font-bold gap-10 phone:hidden">
-          <li onClick={() => handleNavigate("/Home", "home")}>Home</li>
-          <li onClick={() => handleNavigate("/Home", "about")}>About</li>
-          <li onClick={() => handleNavigate("/Home", "food")}>Food</li>
-          <li onClick={() => handleNavigate("/Home", "explore")}>Explore</li>
-          <li onClick={() => handleNavigate("/Home", "history")}>History</li>
+          {menuItems.map((item, index) => (
+            <li
+              key={index}
+              onClick={() => handleNavigate(item.path, item.section)}
+              className="hover:text-yellow"
+            >
+              {item.label}
+            </li>
+          ))}
         </ul>
       </div>
       <div className="account flex justify-between items-center gap-[30px]">
         <FontAwesomeIcon icon={faMagnifyingGlass} />
-        <FontAwesomeIcon icon={faUser} />
+        <FontAwesomeIcon
+          icon={faUser}
+          onClick={() => navigate("/Login")}
+          className="cursor-pointer hover:text-yellow"
+        />
         <FontAwesomeIcon
           icon={faBars}
           className="phone:block hidden cursor-pointer"
@@ -54,6 +69,7 @@ export default function Header() {
         setIsOpen={setIsOpen}
         isOpen={isOpen}
         handleNavigate={handleNavigate}
+        className="cursor-pointer hover:text-yellow"
       />
     </div>
   );
