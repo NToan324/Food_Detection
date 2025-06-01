@@ -5,9 +5,7 @@ import Camera from "../Camera/Camera";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function Modal({ modalIsOpen, setModalIsOpen, kind }) {
-  const handleImageData = (data) => {
-    console.log(data);
-  };
+  const handleImageData = (data) => {};
   return (
     <div>
       <ReactModal

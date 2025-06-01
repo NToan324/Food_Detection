@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SliderCustom from "../../components/Slider/slider.jsx";
 import foodService from "../../services/Food/food.js";
+
 export default function Foods() {
   const [foods, setFoods] = useState([]);
 
